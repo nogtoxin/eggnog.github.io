@@ -3,96 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Protected Page</title>
+    <title>Embed GNHust Games</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
             margin: 0;
+            padding: 0;
+            overflow: hidden;
         }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 300px;
-        }
-        input, button {
-            padding: 10px;
-            margin-top: 10px;
-            display: block;
+        iframe {
             width: 100%;
-            box-sizing: border-box;
-        }
-        button {
-            background: blue;
-            color: white;
+            height: 100vh;
             border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background: darkblue;
-        }
-        #unblockerContent {
-            display: none;
-            text-align: center;
         }
     </style>
 </head>
 <body>
-
-    <!-- Login Page (Initially Visible) -->
-    <div class="container" id="loginPage">
-        <h2>Enter the password</h2>
-        <input type="password" id="password" placeholder="Password">
-        <button onclick="checkPassword()">Submit</button>
-    </div>
-
-    <!-- Unblocker Content (Initially Hidden) -->
-    <div class="container" id="unblockerContent">
-        <h1>Eggnog Unblocker</h1>
-        <p>Access granted! You have successfully entered the correct password.</p>
-    </div>
-
-    <script>
-        const correctHash = -1807950413;
-
-        // Function to handle password check and transition between pages
-        function checkPassword() {
-            const password = document.getElementById("password").value;
-
-            // Hash the entered password and compare it with the stored correct hash
-            const enteredHash = hashString(password);
-
-            if (enteredHash === correctHash) {
-                // Hide login page and show unblocker content
-                document.getElementById("loginPage").style.display = "none";
-                document.getElementById("unblockerContent").style.display = "block";
-                // Optionally, redirect to another page (unblocker.html) after a short delay
-                setTimeout(function() {
-                    window.location.href = "unblocker.html"; // Redirect to unblocker page
-                }, 2000); // 2-second delay before redirect
-            } else {
-                // Incorrect password: redirect to external page
-                window.location.href = "https://welcome.walr.com/surveyout?P1=0&P3=2";
-            }
-        }
-
-        // Simple hash function (for demo purposes)
-        function hashString(str) {
-            let hash = 0;
-            for (let i = 0; i < str.length; i++) {
-                hash = (hash << 5) - hash + str.charCodeAt(i);
-                hash |= 0; // Ensure 32-bit integer
-            }
-            return hash;
-        }
-    </script>
-
+    <iframe src="https://gnhustgames.github.io/" title="GNHust Games"></iframe>
 </body>
 </html>
