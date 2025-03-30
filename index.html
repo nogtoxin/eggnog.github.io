@@ -58,7 +58,7 @@
     <script>
         function checkPassword() {
             const password = document.getElementById("password").value;
-            if (password === "Eggnog") {
+            if (password.toLowerCase() === "eggnog") {
                 document.getElementById("loginPage").classList.add("hidden");
                 document.getElementById("unblockerPage").classList.remove("hidden");
             } else {
