@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        input {
+            padding: 10px;
+            margin-top: 10px;
+            display: block;
+            width: 100%;
+        }
+        button {
+            padding: 10px;
+            margin-top: 10px;
+            width: 100%;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: darkblue;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="loginPage">
+        <h2>Enter the password</h2>
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="checkPassword()">Submit</button>
+    </div>
+
+    <div class="container hidden" id="unblockerPage">
+        <h1>Eggnog Unblocker</h1>
+        <p>Welcome! You have entered the correct password.</p>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const password = document.getElementById("password").value;
+            if (password === "Eggnog") {
+                document.getElementById("loginPage").classList.add("hidden");
+                document.getElementById("unblockerPage").classList.remove("hidden");
+            } else {
+                window.location.href = "https://welcome.walr.com/surveyout?P1=0&P3=2";
+            }
+        }
+    </script>
+</body>
+</html>
