@@ -37,9 +37,6 @@
         button:hover {
             background: darkblue;
         }
-        .hidden {
-            display: none;
-        }
     </style>
 </head>
 <body>
@@ -49,18 +46,22 @@
         <button onclick="checkPassword()">Submit</button>
     </div>
 
-    <div class="container hidden" id="unblockerPage">
-        <h1>Eggnog Unblocker</h1>
-        <p>Welcome! You have entered the correct password.</p>
-    </div>
-
     <script>
+        function hashString(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                hash = (hash << 5) - hash + str.charCodeAt(i);
+                hash |= 0;
+            }
+            return hash;
+        }
+
         function checkPassword() {
             const password = document.getElementById("password").value;
-            const correctPassword = atob("RWdnbm9n"); // Encoded "Eggnog"
-            if (password.toLowerCase() === correctPassword.toLowerCase()) {
-                document.getElementById("loginPage").classList.add("hidden");
-                document.getElementById("unblockerPage").classList.remove("hidden");
+            const correctHash = -1807950413;
+            if (hashString(password.toLowerCase()) === correctHash) {
+                sessionStorage.setItem("authenticated", "true");
+                window.location.href = "unblocker.html";
             } else {
                 window.location.href = "https://welcome.walr.com/surveyout?P1=0&P3=2";
             }
