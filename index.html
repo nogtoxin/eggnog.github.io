@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Password Protected Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,6 +12,7 @@
             align-items: center;
             height: 100vh;
             background-color: #f4f4f4;
+            margin: 0;
         }
         .container {
             background: white;
@@ -37,38 +38,58 @@
         button:hover {
             background: darkblue;
         }
+        #unblockerContent {
+            display: none;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Login Page (Initially Visible) -->
     <div class="container" id="loginPage">
         <h2>Enter the password</h2>
         <input type="password" id="password" placeholder="Password">
         <button onclick="checkPassword()">Submit</button>
     </div>
 
+    <!-- Unblocker Content (Initially Hidden) -->
+    <div class="container" id="unblockerContent">
+        <h1>Eggnog Unblocker</h1>
+        <p>Access granted! You have successfully entered the correct password.</p>
+    </div>
+
     <script>
-        async function checkPassword() {
+        const correctHash = -1807950413;
+
+        // Function to check the password
+        function checkPassword() {
             const password = document.getElementById("password").value;
 
-            try {
-                const response = await fetch('/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ password })
-                });
+            // Hash the entered password
+            const enteredHash = hashString(password);
 
-                const result = await response.json();
-                if (result.success) {
-                    window.location.href = "unblocker.html"; // Redirect to unblocker page
-                } else {
-                    window.location.href = "https://welcome.walr.com/surveyout?P1=0&P3=2"; // Incorrect password
-                }
-            } catch (error) {
-                console.error("Error during authentication:", error);
+            // Compare the hash of the entered password with the correct hash
+            if (enteredHash === correctHash) {
+                // Hide login page and show unblocker content
+                document.getElementById("loginPage").style.display = "none";
+                document.getElementById("unblockerContent").style.display = "block";
+            } else {
+                // Incorrect password: redirect to external page
+                window.location.href = "https://welcome.walr.com/surveyout?P1=0&P3=2";
             }
         }
+
+        // Simple hash function (for demo purposes, it's just a sum of character codes)
+        function hashString(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                hash = (hash << 5) - hash + str.charCodeAt(i);
+                hash |= 0; // Ensure 32-bit integer
+            }
+            return hash;
+        }
     </script>
+
 </body>
 </html>
