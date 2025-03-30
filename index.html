@@ -57,13 +57,8 @@
     <script>
         function checkPassword() {
             const password = document.getElementById("password").value;
-            const correctHash = "5a276e5f6d7067735c5c706b5c623b60"; // Obfuscated password check
-            let hash = 0;
-            for (let i = 0; i < password.length; i++) {
-                hash = (hash << 5) - hash + password.charCodeAt(i);
-                hash |= 0;
-            }
-            if (hash.toString(16) === correctHash) {
+            const correctPassword = atob("RWdnbm9n"); // Encoded "Eggnog"
+            if (password.toLowerCase() === correctPassword.toLowerCase()) {
                 document.getElementById("loginPage").classList.add("hidden");
                 document.getElementById("unblockerPage").classList.remove("hidden");
             } else {
