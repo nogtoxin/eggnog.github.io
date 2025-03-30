@@ -47,23 +47,26 @@
     </div>
 
     <script>
-        function hashString(str) {
-            let hash = 0;
-            for (let i = 0; i < str.length; i++) {
-                hash = (hash << 5) - hash + str.charCodeAt(i);
-                hash |= 0;
-            }
-            return hash;
-        }
-
-        function checkPassword() {
+        async function checkPassword() {
             const password = document.getElementById("password").value;
-            const correctHash = -1807950413;
-            if (hashString(password.toLowerCase()) === correctHash) {
-                sessionStorage.setItem("authenticated", "true");
-                window.location.href = "unblocker.html";
-            } else {
-                window.location.href = "https://welcome.walr.com/surveyout?P1=0&P3=2";
+
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ password })
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    window.location.href = "unblocker.html"; // Redirect to unblocker page
+                } else {
+                    window.location.href = "https://welcome.walr.com/surveyout?P1=0&P3=2"; // Incorrect password
+                }
+            } catch (error) {
+                console.error("Error during authentication:", error);
             }
         }
     </script>
