@@ -10,6 +10,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer; /* show clickable cursor */
   }
   video {
     max-width: 100vw;
@@ -22,10 +23,26 @@
 </head>
 <body>
 
-<video autoplay muted loop playsinline>
-  <source src="video.mp4" type="video/mp4" />
+<video id="bg-video" autoplay muted loop playsinline>
+  <source src="eggnog.mp4" type="video/mp4" />
   Your browser does not support the video tag.
 </video>
+
+<script>
+  const video = document.getElementById('bg-video');
+
+  function unmuteOnClick() {
+    video.muted = false;   // unmute audio
+    video.play();          // ensure it plays
+    document.body.style.cursor = 'default'; // reset cursor
+
+    // Remove event listener after first click
+    document.body.removeEventListener('click', unmuteOnClick);
+  }
+
+  // Listen for any click on the page to unmute
+  document.body.addEventListener('click', unmuteOnClick);
+</script>
 
 </body>
 </html>
