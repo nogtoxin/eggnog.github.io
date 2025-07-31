@@ -14,21 +14,39 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
   }
   video {
     width: 100vw;
     height: 100vh;
-    object-fit: contain; /* fit entire video inside screen */
+    object-fit: contain;
     background: black;
+    display: block;
   }
 </style>
 </head>
 <body>
 
-<video autoplay muted loop playsinline>
+<video id="bg-video" autoplay muted loop playsinline>
   <source src="eggnog.mp4" type="video/mp4" />
   Your browser does not support the video tag.
 </video>
+
+<script>
+  const video = document.getElementById('bg-video');
+
+  function unmuteOnClick() {
+    video.muted = false;  
+    video.play();         
+    document.body.style.cursor = 'default';
+
+    
+    document.body.removeEventListener('click', unmuteOnClick);
+  }
+
+  
+  document.body.addEventListener('click', unmuteOnClick);
+</script>
 
 </body>
 </html>
